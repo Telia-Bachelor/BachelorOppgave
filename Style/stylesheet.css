@@ -11,6 +11,45 @@
     width: 315px;
 }
 
+.bg-c-onecall {
+    background: #F5EFEC;
+    opacity: 75%;
+}
+
+.text-onecall {
+    color: #720707;
+}
+
+.bg-c-onecall:hover {
+    opacity: 100%;
+}
+
+
+.card {
+    border-radius: 15px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
 .single_advisor_profile {
     position: relative;
     margin-bottom: 50px;
