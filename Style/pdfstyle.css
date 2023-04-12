@@ -1,0 +1,23 @@
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    font-family: 'DM Sans', serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #F5EFEC;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
