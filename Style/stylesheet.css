@@ -51,6 +51,7 @@
     float: right;
 }
 
+
 .single_advisor_profile {
     position: relative;
     margin-bottom: 50px;
@@ -76,12 +77,12 @@
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
     position: absolute;
-    width: 150%;
-    height: 80px;
+    width: 165%;
+    height: 90px;
     bottom: -45px;
-    left: -25%;
+    left: -23%;
     content: "";
-    background-color: #ffffff;
+    background-color: #FFF;
     -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
 }
