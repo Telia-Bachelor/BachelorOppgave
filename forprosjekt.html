@@ -21,8 +21,8 @@
     <style>
         #pdf-viewer {
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.2);
             overflow: auto;
         }
 
@@ -36,29 +36,62 @@
     <script>
         url = 'PDF/forprosjekt.pdf';
         var thePdf = null;
-        var scale = 1;
+        var scale = 0.8;
 
         pdfjsLib.getDocument(url).promise.then(function(pdf) {
             thePdf = pdf;
             viewer = document.getElementById('pdf-viewer');
 
-            for(page = 1; page <= pdf.numPages; page++) {
-                canvas = document.createElement("canvas");
+            for (page = 1; page <= pdf.numPages; page++) {
+                var canvasWrapper = document.createElement('div');
+                canvasWrapper.className = 'pdf-page-wrapper';
+                viewer.appendChild(canvasWrapper);
+
+                var canvas = document.createElement('canvas');
                 canvas.className = 'pdf-page-canvas';
-                viewer.appendChild(canvas);
+                canvasWrapper.appendChild(canvas);
+
                 renderPage(page, canvas);
             }
         });
 
         function renderPage(pageNumber, canvas) {
             thePdf.getPage(pageNumber).then(function(page) {
+                var viewport = page.getViewport({ scale: 1 });
+                var wrapperWidth = document.querySelector('.pdf-page-wrapper').offsetWidth;
+                scale = wrapperWidth / viewport.width;
+
                 viewport = page.getViewport({ scale: scale });
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                page.render({canvasContext: canvas.getContext('2d'), viewport: viewport});
+
+                var context = canvas.getContext('2d');
+                page.render({ canvasContext: context, viewport: viewport });
             });
         }
+
+        // Oppdater skalaen når vindusstørrelsen endres
+        window.addEventListener('resize', function() {
+            var wrapperWidth = document.querySelector('.pdf-page-wrapper').offsetWidth;
+            scale = wrapperWidth / thePdf.getPage(1).then(function(page) {
+                var viewport = page.getViewport({ scale: 1 });
+                return viewport.width;
+            });
+            updatePageScale();
+        });
+
+        // Oppdater skalaen for hver side når vindusstørrelsen endres
+        function updatePageScale() {
+            var canvasWrappers = document.getElementsByClassName('pdf-page-wrapper');
+            Array.from(canvasWrappers).forEach(function(wrapper) {
+                var canvas = wrapper.querySelector('.pdf-page-canvas');
+                var pageNumber = parseInt(canvas.getAttribute('data-page-number'), 10);
+                renderPage(pageNumber, canvas);
+            });
+        }
+
     </script>
+
 
 
 </head>
